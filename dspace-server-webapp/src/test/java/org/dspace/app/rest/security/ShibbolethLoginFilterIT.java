@@ -106,10 +106,10 @@ public class ShibbolethLoginFilterIT extends AbstractControllerIntegrationTest {
     @Test
     public void testRedirectToGivenTrustedUrl() throws Exception {
         String token = getClient().perform(get("/api/authn/shibboleth")
-                      .param("redirectUrl", "http://localhost:8080/server/api/authn/status")
+                      .param("redirectUrl", "https://api.stage.academico.click/server/api/authn/status")
                       .requestAttr("SHIB-MAIL", eperson.getEmail()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("http://localhost:8080/server/api/authn/status"))
+                .andExpect(redirectedUrl("https://api.stage.academico.click/server/api/authn/status"))
                    .andReturn().getResponse().getHeader("Authorization");
 
         getClient(token).perform(get("/api/authn/status"))
@@ -136,7 +136,7 @@ public class ShibbolethLoginFilterIT extends AbstractControllerIntegrationTest {
         // Test redirecting to a trusted URL (same as previous test).
         // This time we should be unauthorized as Shibboleth is disabled.
         getClient().perform(get("/api/authn/shibboleth")
-                       .param("redirectUrl", "http://localhost:8080/server/api/authn/status")
+                       .param("redirectUrl", "https://api.stage.academico.click/server/api/authn/status")
                        .requestAttr("SHIB-MAIL", eperson.getEmail()))
                 .andExpect(status().isUnauthorized());
     }

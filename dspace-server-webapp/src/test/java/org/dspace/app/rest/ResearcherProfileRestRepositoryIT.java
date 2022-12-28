@@ -1137,7 +1137,7 @@ public class ResearcherProfileRestRepositoryIT extends AbstractControllerIntegra
 
         getClient(authToken).perform(post("/api/eperson/profiles/")
                                          .contentType(TEXT_URI_LIST)
-                                         .content("http://localhost:8080/server/api/core/items/" + person.getID().toString()))
+                                         .content("https://api.stage.academico.click/server/api/core/items/" + person.getID().toString()))
                             .andExpect(status().isCreated())
                             .andExpect(jsonPath("$.id", is(id)))
                             .andExpect(jsonPath("$.type", is("profile")))
@@ -1161,7 +1161,7 @@ public class ResearcherProfileRestRepositoryIT extends AbstractControllerIntegra
         // trying to claim another profile
         getClient(authToken).perform(post("/api/eperson/profiles/")
                                          .contentType(TEXT_URI_LIST)
-                                         .content("http://localhost:8080/server/api/core/items/" + otherPerson.getID().toString()))
+                                         .content("https://api.stage.academico.click/server/api/core/items/" + otherPerson.getID().toString()))
                             .andExpect(status().isUnprocessableEntity());
 
         // other person trying to claim same profile
@@ -1179,7 +1179,7 @@ public class ResearcherProfileRestRepositoryIT extends AbstractControllerIntegra
 
         getClient(ePersonToken).perform(post("/api/eperson/profiles/")
                                          .contentType(TEXT_URI_LIST)
-                                         .content("http://localhost:8080/server/api/core/items/" + person.getID().toString()))
+                                         .content("https://api.stage.academico.click/server/api/core/items/" + person.getID().toString()))
                             .andExpect(status().isBadRequest());
 
         getClient(authToken).perform(delete("/api/eperson/profiles/{id}", id))
@@ -1201,7 +1201,7 @@ public class ResearcherProfileRestRepositoryIT extends AbstractControllerIntegra
 
         getClient(authToken).perform(post("/api/eperson/profiles/")
             .contentType(TEXT_URI_LIST)
-            .content("http://localhost:8080/server/api/core/items/" + person.getID().toString()))
+            .content("https://api.stage.academico.click/server/api/core/items/" + person.getID().toString()))
             .andExpect(status().isBadRequest());
     }
 
@@ -1221,7 +1221,7 @@ public class ResearcherProfileRestRepositoryIT extends AbstractControllerIntegra
 
         getClient(authToken).perform(post("/api/eperson/profiles/")
             .contentType(TEXT_URI_LIST)
-            .content("http://localhost:8080/server/api/core/items/" + person.getID().toString()))
+            .content("https://api.stage.academico.click/server/api/core/items/" + person.getID().toString()))
             .andExpect(status().isBadRequest());
     }
 
@@ -1241,7 +1241,7 @@ public class ResearcherProfileRestRepositoryIT extends AbstractControllerIntegra
         getClient(authToken).perform(post("/api/eperson/profiles/")
                                          .param("eperson" , anotherUser.getID().toString())
                                          .contentType(TEXT_URI_LIST)
-                                         .content("http://localhost:8080/server/api/core/items/" + person.getID().toString()))
+                                         .content("https://api.stage.academico.click/server/api/core/items/" + person.getID().toString()))
                             .andExpect(status().isForbidden());
     }
 
@@ -1263,7 +1263,7 @@ public class ResearcherProfileRestRepositoryIT extends AbstractControllerIntegra
         getClient(authToken).perform(post("/api/eperson/profiles/")
                                          .param("eperson" , id)
                                          .contentType(TEXT_URI_LIST)
-                                         .content("http://localhost:8080/server/api/core/items/" + person.getID().toString()))
+                                         .content("https://api.stage.academico.click/server/api/core/items/" + person.getID().toString()))
                             .andExpect(status().isUnprocessableEntity());
     }
 
@@ -1285,7 +1285,7 @@ public class ResearcherProfileRestRepositoryIT extends AbstractControllerIntegra
         getClient(authToken).perform(post("/api/eperson/profiles/")
                                          .param("eperson" , id)
                                          .contentType(TEXT_URI_LIST)
-                                         .content("http://localhost:8080/server/api/core/items/" + person.getID().toString()))
+                                         .content("https://api.stage.academico.click/server/api/core/items/" + person.getID().toString()))
                             .andExpect(status().isBadRequest());
     }
 
@@ -1307,7 +1307,7 @@ public class ResearcherProfileRestRepositoryIT extends AbstractControllerIntegra
 
         getClient(authToken).perform(post("/api/eperson/profiles/")
                                          .contentType(TEXT_URI_LIST)
-                                         .content("http://localhost:8080/server/api/core/items/" + publication.getID().toString()))
+                                         .content("https://api.stage.academico.click/server/api/core/items/" + publication.getID().toString()))
                             .andExpect(status().isBadRequest());
     }
 
@@ -2243,7 +2243,7 @@ public class ResearcherProfileRestRepositoryIT extends AbstractControllerIntegra
 
         getClient(authToken)
             .perform(post("/api/eperson/profiles/").contentType(TEXT_URI_LIST)
-                                                   .content("http://localhost:8080/server/api/core/items/" + id))
+                                                   .content("https://api.stage.academico.click/server/api/core/items/" + id))
             .andExpect(status().isUnprocessableEntity());
     }
 

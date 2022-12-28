@@ -464,10 +464,10 @@ public class OrcidLoginFilterIT extends AbstractControllerIntegrationTest {
         when(orcidClientMock.getAccessToken(CODE)).thenReturn(buildOrcidTokenResponse(ORCID, ACCESS_TOKEN));
 
         String token = getClient().perform(get("/api/" + AuthnRest.CATEGORY + "/orcid")
-            .param("redirectUrl", "http://localhost:8080/server/api/authn/status")
+            .param("redirectUrl", "https://api.stage.academico.click/server/api/authn/status")
             .param("code", CODE))
             .andExpect(status().is3xxRedirection())
-            .andExpect(redirectedUrl("http://localhost:8080/server/api/authn/status"))
+            .andExpect(redirectedUrl("https://api.stage.academico.click/server/api/authn/status"))
             .andReturn().getResponse().getHeader("Authorization");
 
         getClient(token).perform(get("/api/authn/status"))

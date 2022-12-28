@@ -1111,7 +1111,7 @@ public class StatisticsRestRepositoryIT extends AbstractControllerIntegrationTes
     @Test
     public void usagereportsSearch_NonExistentUUID_Exception() throws Exception {
         getClient(adminToken).perform(
-                  get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+                  get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                                 "/items/" + UUID.randomUUID()))
                    .andExpect(status().is(HttpStatus.NOT_FOUND.value()));
     }
@@ -1121,13 +1121,13 @@ public class StatisticsRestRepositoryIT extends AbstractControllerIntegrationTes
         // ** WHEN **
         authorizeService.removeAllPolicies(context, itemNotVisitedWithBitstreams);
         // We request a dso's TotalVisits usage stat report as anon but dso has no read policy for anon
-        getClient().perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+        getClient().perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                                 "/items/" + itemNotVisitedWithBitstreams.getID()))
                    // ** THEN **
                    .andExpect(status().isUnauthorized());
         // We request a dso's TotalVisits usage stat report as admin
         getClient(adminToken)
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api" +
                          "/core/items/" + itemNotVisitedWithBitstreams.getID()))
             // ** THEN **
             .andExpect(status().isOk());
@@ -1139,7 +1139,7 @@ public class StatisticsRestRepositoryIT extends AbstractControllerIntegrationTes
         authorizeService.removeAllPolicies(context, itemNotVisitedWithBitstreams);
         // We request a dso's TotalVisits usage stat report with unvalid token
         getClient("unvalidToken")
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                          "/items/" + itemNotVisitedWithBitstreams.getID()))
             // ** THEN **
             .andExpect(status().isUnauthorized());
@@ -1163,20 +1163,20 @@ public class StatisticsRestRepositoryIT extends AbstractControllerIntegrationTes
         String anotherLoggedInUserToken = getAuthToken(eperson1.getEmail(), password);
         // We request a dso's TotalVisits usage stat report as anon but dso has no read policy for anon
         getClient()
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                          "/items/" + itemNotVisitedWithBitstreams.getID()))
             // ** THEN **
             .andExpect(status().isUnauthorized());
         // We request a dso's TotalVisits usage stat report as logged in eperson and has read policy for this user
         getClient(loggedInToken)
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                          "/items/" + itemNotVisitedWithBitstreams.getID()))
             // ** THEN **
             .andExpect(status().isForbidden());
         // We request a dso's TotalVisits usage stat report as another logged in eperson and has no read policy for
         // this user
         getClient(anotherLoggedInUserToken)
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                          "/items/" + itemNotVisitedWithBitstreams.getID()))
             // ** THEN **
             .andExpect(status().isForbidden());
@@ -1220,7 +1220,7 @@ public class StatisticsRestRepositoryIT extends AbstractControllerIntegrationTes
 
         // And request the sites global usage report (show top most popular items)
         getClient(adminToken)
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                          "/sites/" + site.getID()))
             // ** THEN **
             .andExpect(status().isOk())
@@ -1254,7 +1254,7 @@ public class StatisticsRestRepositoryIT extends AbstractControllerIntegrationTes
 
         // And request the community usage reports
         getClient(adminToken)
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                          "/communities/" + communityVisited.getID()))
             // ** THEN **
             .andExpect(status().isOk())
@@ -1295,7 +1295,7 @@ public class StatisticsRestRepositoryIT extends AbstractControllerIntegrationTes
         // Collection is not visited
         // And request the collection's usage reports
         getClient(adminToken)
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                          "/collections/" + collectionNotVisited.getID()))
             // ** THEN **
             .andExpect(status().isOk())
@@ -1343,7 +1343,7 @@ public class StatisticsRestRepositoryIT extends AbstractControllerIntegrationTes
 
         // And request the community usage reports
         getClient(adminToken)
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                          "/items/" + itemVisited.getID()))
             // ** THEN **
             .andExpect(status().isOk())
@@ -1430,7 +1430,7 @@ public class StatisticsRestRepositoryIT extends AbstractControllerIntegrationTes
 
         // And request the community usage reports
         getClient(adminToken)
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                          "/items/" + itemVisited.getID()))
             // ** THEN **
             .andExpect(status().isOk())
@@ -1494,7 +1494,7 @@ public class StatisticsRestRepositoryIT extends AbstractControllerIntegrationTes
 
         // And request the community usage reports
         getClient(adminToken)
-            .perform(get("/api/statistics/usagereports/search/object?uri=http://localhost:8080/server/api/core" +
+            .perform(get("/api/statistics/usagereports/search/object?uri=https://api.stage.academico.click/server/api/core" +
                          "/items/" + bitstreamVisited.getID()))
             // ** THEN **
             .andExpect(status().isOk())
